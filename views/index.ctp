@@ -20,8 +20,8 @@
 <?php
 echo "<?php\n";
 echo "App::import('Vendor', 'Funciones');\n";
-echo "echo \$this->Form->create('{$modelClass}',array('url' => array('action' => 'index'),'id'=>'index_form'));\n";
-echo "?>\n"; 
+echo "echo \$this->Form->create('{$modelClass}',array('url' => array('action' => 'index','plugin'=>false),'id'=>'index_form'));\n";
+echo "?>\n";
 ?>
 <div class="<?php echo $pluralVar; ?> index">
 	<h2><?php echo "<?php echo __('{$pluralHumanName}'); ?>"; ?></h2>
@@ -65,7 +65,7 @@ echo "?>\n";
 	<ul>
 		<li>
 			<?php echo "<?php echo \$this->Html->link(
-							\$this->Html->image('iconos/agregar.png', array('alt' => '')) . ' ' . __('Nuevo'),
+							\$this->Html->image('icons/add.png', array('alt' => '')) . ' ' . __('Nuevo'),
 							array('action' => 'add'),
 							array('escape' => false)
 						); ?>\n"; ?>
@@ -73,36 +73,36 @@ echo "?>\n";
 		<?php echo "<?php if(!empty(\${$pluralVar})):?>\n"; ?>
 		<li>
 			<?php echo "<?php echo \$this->Html->link(
-							\$this->Html->image('iconos/cross.png', array('alt' => '')) . ' ' . __('Eliminar'),
+							\$this->Html->image('icons/cross.png', array('alt' => '')) . ' ' . __('Eliminar'),
 							array('action' => 'delete'),
 							array('escape' => false, 'class' => 'index_form_link')
 						); ?>\n"; ?>
 		</li>
 
-		<?php if (ClassRegistry::init($modelClass)->hasField('active')): ?> 
+		<?php if (ClassRegistry::init($modelClass)->hasField('active')): ?>
 
 		<li>
 
 		<?php
 			echo "<?php echo \$this->Html->link(
-					\$this->Html->image('iconos/unlocked.png',array('alt'=>'')).' '.__('Activar'),
+					\$this->Html->image('icons/unlocked.png',array('alt'=>'')).' '.__('Activar'),
 					array('action'=>'set_active', 1),
 					array('escape'=>false, 'class' => 'index_form_link')
-				);?>\n"; 
+				);?>\n";
 		?>
 
 		</li>
 		<li>
 		<?php
 			echo "<?php echo \$this->Html->link(
-					\$this->Html->image('iconos/locked.png',
+					\$this->Html->image('icons/locked.png',
 					array('alt'=>'')).' '.__('Desactivar'),
 					array('action'=>'set_active', 0),
 					array('escape'=>false, 'class' => 'index_form_link')
 				);?>\n";
 		?>
 		</li>
-	<?php 
+	<?php
 	endif;
 	echo  "<?php endif; ?>";
 	?>
@@ -112,7 +112,7 @@ echo "?>\n";
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 		<th><?php echo "<?php echo \$this->Form->checkbox('main', array('id'=>'main')); ?>"; ?></th>
-	<?php foreach ($fields as $field): 
+	<?php foreach ($fields as $field):
 		if (in_array($field, array($primaryKey, 'modified'))) {
 			continue;
 		}
@@ -143,16 +143,16 @@ echo "?>\n";
 				if ($field == 'active') {
 					echo "\t\t<td class=\"icon\">
 						<?php if (\${$singularVar}['{$modelClass}']['{$field}']) {
-							\$image = \$this->Html->image('iconos/unlocked.png', array('alt' => __('Desactivar')));
+							\$image = \$this->Html->image('icons/unlocked.png', array('alt' => __('Desactivar')));
 							echo \$this->Html->link(
-								\$image, 
+								\$image,
 								array('action' => 'set_active', 0, \${$singularVar}['{$modelClass}']['{$primaryKey}']),
 								array('escape' => false)
 							);
 						} else {
-							\$image = \$this->Html->image('iconos/locked.png', array('alt' => __('Activar')));
+							\$image = \$this->Html->image('icons/locked.png', array('alt' => __('Activar')));
 							echo \$this->Html->link(
-								\$image, 
+								\$image,
 								array('action' => 'set_active', 1, \${$singularVar}['{$modelClass}']['{$primaryKey}']),
 								array('escape' => false)
 							);
@@ -164,9 +164,9 @@ echo "?>\n";
 							echo \$this->Html->image('{$modelClass}/' . \${$singularVar}['{$modelClass}']['{$field}'] . ',fitCrop,100,100.jpg');
 					?></td>\n";
 				} elseif (in_array(strtolower(ClassRegistry::init($modelClass)->getColumnType($field)), array('date', 'datetime'))) {
-					echo "\t\t<td><?php echo mostrar_fecha(\${$singularVar}['{$modelClass}']['{$field}']); ?>&nbsp;</td>\n"; 
+					echo "\t\t<td><?php echo mostrar_fecha(\${$singularVar}['{$modelClass}']['{$field}']); ?>&nbsp;</td>\n";
 				} elseif (strtolower(ClassRegistry::init($modelClass)->getColumnType($field)) == 'text') {
-					echo "\t\t<td><?php echo recortar(\${$singularVar}['{$modelClass}']['{$field}'], 250); ?>&nbsp;</td>\n"; 
+					echo "\t\t<td><?php echo h(\${$singularVar}['{$modelClass}']['{$field}'], 250); ?>&nbsp;</td>\n";
 				} else {
 					echo "\t\t<td><?php echo h(\${$singularVar}['{$modelClass}']['{$field}']); ?>&nbsp;</td>\n";
 				}

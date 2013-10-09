@@ -74,7 +74,7 @@ if ($displayField): ?>
 
 <?php endif;
 
-if (ClassRegistry::init($name)->hasField('avatar')): 
+if (ClassRegistry::init($name)->hasField('avatar')):
 	$dest = MEDIA_TRANSFER . 'img' . DS . $name;
 	$orig = MEDIA_TRANSFER . 'img';
 	if (!is_dir($dest)) {
@@ -97,7 +97,7 @@ if (ClassRegistry::init($name)->hasField('avatar')):
 		'Media.Transfer' => array(
 			'trustClient' => false,
 	        'transferDirectory' => MEDIA_TRANSFER,
-    	    'createDirectory' => true,	
+    	    'createDirectory' => true,
 		)
 	);
 <?php endif;
